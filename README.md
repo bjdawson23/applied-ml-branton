@@ -1,4 +1,4 @@
-# applied-ml-template
+# applied-ml-branton
 
 > Use this repo to start a professional Python project.
 
