@@ -29,6 +29,10 @@ Each project will be completed in its own folder.
   - ml01.py - working script with just the code
   - README.md - instructions - modify this to present your lab project
 
+- notebooks/project02 folder:
+  - ml01_branton.ipynb - **COMPLETED** - Comprehensive data analysis project
+  - README.md - project documentation and analysis summary
+
 ---
 
 ## WORKFLOW 1. Set Up Machine
@@ -136,7 +140,7 @@ uv run mkdocs serve
 
 ### 3.4 Execute
 
-This project includes demo code.
+This project includes demo code and completed analysis notebooks.
 Run the demo Python modules to confirm everything is working.
 
 In VS Code terminal, run:
@@ -145,12 +149,57 @@ In VS Code terminal, run:
 uv run python notebooks/project01/ml01.py
 ```
 
-A new window with charts should appear. Close the window to finish the execution. 
+A new window with charts should appear. Close the window to finish the execution.
 If this works, your project is ready! If not, check:
 
 - Are you in the right folder? (All terminal commands are to be run from the root project folder.)
 - Did you run the full `uv sync --extra dev --extra docs --upgrade` command?
 - Are there any error messages? (ask for help with the exact error)
+
+## Project 02: ml01_branton.ipynb - Comprehensive Data Analysis
+
+**Author:** Branton Dawson  
+**Date:** October 30-31, 2025  
+**Status:** COMPLETED
+
+### Project Overview
+
+This notebook demonstrates comprehensive data analysis techniques using two datasets:
+
+#### Primary Analysis: Titanic Dataset
+
+- **Data Exploration**: Loaded and explored 891 passenger records with 15 features
+- **Missing Value Handling**: Implemented median imputation for age, mode imputation for embark_town
+- **Feature Engineering**: Created family_size feature, converted categorical variables to numeric
+- **Visualization**: Generated scatter matrices, histograms, and count plots for pattern analysis
+- **Class Imbalance Analysis**: Identified 38% survival vs 62% mortality, gender imbalance (65% male)
+- **Train/Test Splitting**: Compared basic vs stratified splitting methods
+- **Key Findings**: 74.2% female survival vs 18.9% male survival rate
+
+#### Bonus Analysis: Pima Indians Diabetes Dataset
+
+- **Dataset**: 768 patient records with 9 medical features
+- **Feature Analysis**: Detailed explanation of medical measurements and their significance
+- **Class Distribution**: 65.1% no diabetes, 34.9% diabetes
+- **Feature Engineering**: Created age ranges and BMI categories
+- **Splitting Comparison**: Demonstrated superior performance of stratified splitting (0.2% deviation vs 2.8%)
+
+### Technical Accomplishments
+
+- **Data Preprocessing**: Missing value imputation, categorical encoding
+- **Exploratory Data Analysis**: Statistical summaries, correlation analysis, visualization
+- **Feature Engineering**: Created meaningful derived features
+- **Model Preparation**: Proper train/test splitting with stratification
+- **Class Imbalance Handling**: Identified and addressed distribution issues
+- **Comparative Analysis**: Side-by-side evaluation of different datasets and methods
+
+### Key Learning Outcomes
+
+1. **Stratified Sampling**: Maintains class proportions better than random splitting
+2. **Feature Importance**: Gender, class, and fare are strongest Titanic survival predictors
+3. **Medical Data Analysis**: Glucose and BMI are primary diabetes risk factors
+4. **Data Quality**: Proper handling of missing values is crucial for model performance
+5. **Visualization**: Effective plots reveal hidden patterns in data distributions
 
 ## Update this README as you work
 
