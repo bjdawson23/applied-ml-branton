@@ -27,6 +27,7 @@ Each project will be completed in its own folder.
 - notebooks/project01 folder:
   - ml01.ipynb - COMPLETE THIS
   - ml01.py - working script with just the code
+  - ml01_branton.ipynb - **COMPLETED** - California Housing Price Prediction
   - README.md - instructions - modify this to present your lab project
 
 ---
@@ -151,6 +152,64 @@ If this works, your project is ready! If not, check:
 - Are you in the right folder? (All terminal commands are to be run from the root project folder.)
 - Did you run the full `uv sync --extra dev --extra docs --upgrade` command?
 - Are there any error messages? (ask for help with the exact error)
+
+## Project 01: ml01_branton.ipynb - California Housing Price Prediction
+
+**Author:** Branton Dawson  
+**Date:** October 23, 2025  
+**Status:** COMPLETED
+
+### Project Overview
+
+This notebook demonstrates a complete machine learning regression workflow using the California housing dataset to predict median house prices.
+
+#### Dataset Analysis: California Housing Dataset
+
+- **Data Source**: Scikit-learn's built-in California housing dataset
+- **Objective**: Predict median house prices based on housing characteristics
+- **Features**: 8 numerical features including median income, house age, average rooms, etc.
+- **Target**: Median house value in hundreds of thousands of dollars
+- **Sample Size**: 20,640 housing districts in California
+
+#### Technical Implementation
+
+- **Data Loading**: Used `fetch_california_housing()` from scikit-learn
+- **Data Exploration**: Comprehensive analysis of features, distributions, and correlations
+- **Data Preprocessing**: Feature scaling and data cleaning
+- **Model Training**: Linear regression implementation
+- **Model Evaluation**: Multiple metrics including R², MAE, and RMSE
+- **Visualization**: Scatter plots, histograms, and correlation matrices
+
+#### Key Technical Skills Demonstrated
+
+1. **Data Loading and Exploration**
+   - Loading datasets from scikit-learn
+   - Pandas DataFrame manipulation
+   - Statistical summary analysis
+
+2. **Data Visualization**
+   - Matplotlib and Seaborn integration
+   - Correlation heatmaps
+   - Distribution plots and scatter matrices
+
+3. **Machine Learning Pipeline**
+   - Train/test data splitting
+   - Linear regression model training
+   - Performance evaluation using multiple metrics
+
+4. **Model Performance Evaluation**
+   - R-squared (R²): Coefficient of determination
+   - Mean Absolute Error (MAE): Average absolute prediction error
+   - Root Mean Squared Error (RMSE): Standard deviation of prediction errors
+
+#### Learning Outcomes
+
+- **Regression Analysis**: Understanding of supervised learning for continuous target variables
+- **Feature Analysis**: Identifying relationships between housing characteristics and prices
+- **Model Evaluation**: Using appropriate metrics to assess regression model performance
+- **End-to-End Workflow**: Complete machine learning project from data loading to evaluation
+
+This project serves as a foundation for understanding regression analysis and provides practical experience with the entire machine learning workflow using real-world housing data.
 
 ## Update this README as you work
 
