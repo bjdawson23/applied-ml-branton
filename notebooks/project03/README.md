@@ -33,6 +33,10 @@ Each project will be completed in its own folder.
   - ml01_branton.ipynb - **COMPLETED** - Comprehensive data analysis project
   - README.md - project documentation and analysis summary
 
+- notebooks/project03 folder:
+  - ml03_branton.ipynb - **COMPLETED** - Classification model comparison project
+  - README.md - project documentation and performance analysis
+
 ---
 
 ## WORKFLOW 1. Set Up Machine
@@ -156,50 +160,109 @@ If this works, your project is ready! If not, check:
 - Did you run the full `uv sync --extra dev --extra docs --upgrade` command?
 - Are there any error messages? (ask for help with the exact error)
 
-## Project 02: ml01_branton.ipynb - Comprehensive Data Analysis
+## Project 03: ml03_branton.ipynb - Classification Model Comparison
 
 **Author:** Branton Dawson  
-**Date:** October 30-31, 2025  
+**Date:** November 6, 2025  
 **Status:** COMPLETED
 
 ### Project Overview
 
-This notebook demonstrates comprehensive data analysis techniques using two datasets:
+This notebook demonstrates advanced classification techniques by comparing three different algorithms on the Titanic survival prediction task. The project systematically evaluates Decision Trees, Support Vector Machines, and Neural Networks across multiple feature combinations.
 
-#### Primary Analysis: Titanic Dataset
+#### Objective: Multi-Algorithm Classification Analysis
 
-- **Data Exploration**: Loaded and explored 891 passenger records with 15 features
-- **Missing Value Handling**: Implemented median imputation for age, mode imputation for embark_town
-- **Feature Engineering**: Created family_size feature, converted categorical variables to numeric
-- **Visualization**: Generated scatter matrices, histograms, and count plots for pattern analysis
-- **Class Imbalance Analysis**: Identified 38% survival vs 62% mortality, gender imbalance (65% male)
-- **Train/Test Splitting**: Compared basic vs stratified splitting methods
-- **Key Findings**: 74.2% female survival vs 18.9% male survival rate
+- **Dataset**: Titanic survival data (891 passengers)
+- **Algorithms**: Decision Tree Classifier, Support Vector Machine (SVM), Neural Network (MLP)
+- **Feature Cases**: Three different feature combinations tested for each algorithm
+- **Goal**: Determine optimal model-feature combinations for classification tasks
 
-#### Bonus Analysis: Pima Indians Diabetes Dataset
+#### Feature Engineering & Selection
 
-- **Dataset**: 768 patient records with 9 medical features
-- **Feature Analysis**: Detailed explanation of medical measurements and their significance
-- **Class Distribution**: 65.1% no diabetes, 34.9% diabetes
-- **Feature Engineering**: Created age ranges and BMI categories
-- **Splitting Comparison**: Demonstrated superior performance of stratified splitting (0.2% deviation vs 2.8%)
+**Case 1: Simple Binary Feature**
+- **Features**: `alone` (binary: traveling alone vs. with family)
+- **Rationale**: Test social dynamics theory in survival scenarios
+- **Analysis**: 50.6% survival with family vs. 30.4% alone
+
+**Case 2: Continuous Demographic Feature** 
+- **Features**: `age` (continuous numerical)
+- **Rationale**: Age represents physical capability and social priority ("children first")
+- **Analysis**: Clear age patterns - Children (58.0%), Adults (35.3%), Seniors (22.7%)
+
+**Case 3: Complex Feature Interaction**
+- **Features**: `age` + `family_size` (multi-dimensional)
+- **Rationale**: Combine demographic and social context factors
+- **Analysis**: Family sizes 2-4 show 55-72% survival vs. 30% for solo travelers
+
+### Performance Summary - Classification Results
+
+| Model Type | Case | Features Used | Accuracy | Precision | Recall | F1-Score | Notes |
+|------------|------|---------------|----------|-----------|--------|----------|-------|
+| **Decision Tree** | 1 | alone | **63%** | 61% | 62% | 61% | 🏆 Best generalization, minimal overfitting |
+| | 2 | age | 61% | 57% | 53% | 50% | Poor survivor recall (17%) |
+| | 3 | age + family_size | 59% | 55% | 54% | 54% | Significant overfitting evident |
+| **SVM (RBF)** | 1 | alone | **63%** | 61% | 62% | 61% | Matches Decision Tree performance |
+| | 2 | age | 63% | 67% | 53% | 45% | ⚠️ Terrible survivor recall (7%!) |
+| | 3 | age + family_size | 63% | 67% | 53% | 45% | No improvement from added features |
+| **Neural Network** | 3 | age + family_size | **66%** | 64% | 62% | 63% | 🏆 Highest accuracy achieved |
+
+#### **🏆 Performance Rankings:**
+1. **Neural Network (Case 3)**: 66% accuracy - Best overall performance
+2. **Decision Tree & SVM (Case 1)**: 63% accuracy - Tied for simple features  
+3. **Decision Tree (Case 2)**: 61% accuracy - Moderate performance
 
 ### Technical Accomplishments
 
-- **Data Preprocessing**: Missing value imputation, categorical encoding
-- **Exploratory Data Analysis**: Statistical summaries, correlation analysis, visualization
-- **Feature Engineering**: Created meaningful derived features
-- **Model Preparation**: Proper train/test splitting with stratification
-- **Class Imbalance Handling**: Identified and addressed distribution issues
-- **Comparative Analysis**: Side-by-side evaluation of different datasets and methods
+- **Multi-Algorithm Implementation**: Successfully deployed three different ML algorithms
+- **Systematic Feature Testing**: Rigorous evaluation across multiple feature combinations
+- **Model Comparison**: Comprehensive performance analysis with multiple metrics
+- **Overfitting Detection**: Identified and analyzed training vs. test performance gaps
+- **Visualization Techniques**: Decision trees, support vectors, and neural network decision boundaries
+- **Class Imbalance Handling**: Proper stratified train/test splitting
 
-### Key Learning Outcomes
+### Key Learning Outcomes & Insights
 
-1. **Stratified Sampling**: Maintains class proportions better than random splitting
-2. **Feature Importance**: Gender, class, and fare are strongest Titanic survival predictors
-3. **Medical Data Analysis**: Glucose and BMI are primary diabetes risk factors
-4. **Data Quality**: Proper handling of missing values is crucial for model performance
-5. **Visualization**: Effective plots reveal hidden patterns in data distributions
+#### **Critical Discovery: Model-Feature Complexity Matching**
+
+1. **Simple Features → Simple Models**: Decision Tree and SVM excel with basic features (`alone`)
+2. **Complex Features → Advanced Models**: Neural Networks perform best with feature interactions
+3. **Feature Addition Paradox**: More features can hurt simple models but help complex ones
+
+#### **Algorithm-Specific Insights**
+
+- **Decision Trees**: Most reliable across all cases, best for interpretability
+- **SVM**: Excellent for simple features but struggles with class imbalance on complex features  
+- **Neural Networks**: Superior for complex feature relationships, requires proper architecture
+
+#### **Practical Machine Learning Lessons**
+
+1. **Overfitting Patterns**: Training accuracy ≠ real-world performance
+2. **Evaluation Metrics**: Accuracy alone insufficient - examine precision/recall individually
+3. **Feature Engineering Impact**: Quality over quantity in feature selection
+4. **Algorithm Selection**: Match model sophistication to data complexity
+
+### Challenges Faced & Solutions
+
+- **SVM Class Imbalance**: 7% survivor recall in complex cases - solved by recognizing algorithm limitations
+- **Overfitting Management**: Decision Trees showed 77% training vs 59% test accuracy - demonstrated need for simpler models
+- **Performance Interpretation**: High overall accuracy masked poor minority class detection
+- **Feature Complexity**: Learned that feature interactions require appropriate model complexity
+
+### Future Improvements & Next Steps
+
+**Immediate Enhancements:**
+- Add gender and passenger class features (likely strongest predictors)
+- Hyperparameter tuning for all algorithms
+- Cross-validation for robust performance estimates
+
+**Advanced Techniques:**
+- Ensemble methods (Random Forest, Gradient Boosting)
+- Feature interaction analysis with polynomial features
+- SHAP analysis for model interpretability
+
+**Research Extensions:**
+- External validation on similar disaster datasets
+- Deep learning architectures for complex feature relationships
 
 ## Update this README as you work
 
