@@ -1,4 +1,16 @@
-# applied-ml-branton
+# Project 04: ml04_branton.ipynb - Regression Analysis for Fare Prediction
+
+**Author:** Branton Dawson  
+**Date:** November 13, 2025  
+**Status:** COMPLETED
+
+- NOTEBOOK LINK: [ml04_branton_notebook](https://github.com/bjdawson23/applied-ml-branton/blob/main/notebooks/project04/ml04_branton.ipynb)
+
+### Project Overview
+
+This notebook demonstrates comprehensive regression modeling techniques by predicting Titanic passenger fares using multiple algorithms and feature combinations. The project systematically compares Linear Regression, Polynomial Regression, Ridge Regression, and Elastic Net models to understand continuous target prediction challenges.
+
+## applied-ml-branton
 
 > Use this repo to start a professional Python project.
 
