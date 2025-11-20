@@ -1,13 +1,14 @@
-# Project 05: ensemble_branton.ipynb - Ensemble Machine Learning – Wine Dataset
+# Project 05: ensemble_branton.ipynb - Ensemble Machine Learning – Wine Quality Classification
 
 **Author:** Branton Dawson  
-**Date:** November 19, 2025  
+**Date:** November 20, 2025  
 **Status:** COMPLETED
 
-- NOTEBOOK LINK:  [Ensemble ML, Sprial](https://github.com/bjdawson23/applied-ml-branton/blob/main/notebooks/project05/ml05_branton.ipynb)
+- NOTEBOOK LINK: [Ensemble ML, Wine Quality](https://github.com/bjdawson23/applied-ml-branton/blob/main/notebooks/project05/ensemble_branton.ipynb)
 
 **Project Overview**
-This notebook demonstrates comprehensive regression modeling techniques by predicting Titanic passenger fares using multiple algorithms and feature combinations. The project systematically compares Linear Regression, Polynomial Regression, Ridge Regression, and Elastic Net models to understand continuous target prediction challenges.
+
+This notebook demonstrates ensemble machine learning techniques by classifying wine quality using multiple ensemble algorithms. The project compares Random Forest and Voting Classifier approaches to understand how combining multiple models improves prediction performance on the UCI Wine Quality dataset.
 
 ## applied-ml-branton
 
@@ -52,15 +53,15 @@ Each project will be completed in its own folder.
 
 We use the Wine Quality Dataset made available by the UCI Machine Learning Repository.
 
-https://archive.ics.uci.edu/ml/datasets/Wine+Quality
-Links to an external site.
+- UCI Repository: <https://archive.ics.uci.edu/ml/datasets/Wine+Quality>
+
 Data originally published by:
 P. Cortez, A. Cerdeira, F. Almeida, T. Matos and J. Reis.  
 Modeling wine preferences by data mining from physicochemical properties.  
 In Decision Support Systems, Elsevier, 47(4):547–553, 2009.
 
 Direct download link to raw csv:
-https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv
+<https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv>
 
 ---
 
@@ -144,16 +145,13 @@ uv run pytest
 ```
 
 NOTE: The second `git add .` ensures any automatic fixes made by Ruff or pre-commit are included before testing or committing.
-Running `uv run pre-commit run --all-files` twice may be helpful if the first time doesn't pass. 
+Running `uv run pre-commit run --all-files` twice may be helpful if the first time doesn't pass.
 
-<details>
-<summary>Click to see a note on best practices</summary>
+**Note on best practices:**
 
 `uvx` runs the latest version of a tool in an isolated cache, outside the virtual environment.
 This keeps the project light and simple, but behavior can change when the tool updates.
 For fully reproducible results, or when you need to use the local `.venv`, use `uv run` instead.
-
-</details>
 
 ### 3.3 Build Project Documentation
 
@@ -217,131 +215,128 @@ Each time forward progress is made, remember to git add-commit-push.
 
 ---
 
-### Project Overview
+## Project Overview: Ensemble Learning for Wine Quality Classification
 
-This notebook demonstrates comprehensive regression modeling techniques by predicting Titanic passenger fares using multiple algorithms and feature combinations. The project systematically compares Linear Regression, Polynomial Regression, Ridge Regression, and Elastic Net models to understand continuous target prediction challenges.
+This notebook demonstrates ensemble machine learning techniques by predicting wine quality categories using multiple ensemble algorithms. The project systematically compares Random Forest and Voting Classifier approaches to understand how combining multiple models improves classification performance and generalization.
 
-#### Objective: Multi-Model Regression Analysis
+### Objective: Multi-Model Ensemble Analysis
 
-- **Dataset**: Titanic passenger data (891 passengers after cleaning)
-- **Target Variable**: `fare` (continuous - amount paid for journey)
-- **Algorithms**: Linear Regression, Polynomial Regression (degrees 3 & 6), Ridge Regression, Elastic Net
-- **Feature Cases**: Four different feature combinations tested across all models
-- **Goal**: Determine optimal model-feature combinations for fare prediction and understand regression complexity trade-offs
+- **Dataset**: UCI Wine Quality (Red Wine) - 1,599 samples with 11 physicochemical features
+- **Target Variable**: `quality` (original: 0-10 scale) → simplified to 3 categories: Low (0-4), Medium (5-6), High (7-8)
+- **Algorithms**: Random Forest (100 trees), Voting Classifier (Random Forest + Logistic Regression + K-Nearest Neighbors)
+- **Evaluation Metrics**: Accuracy, Precision, Recall, F1 Score (weighted average for multi-class)
+- **Goal**: Determine which ensemble approach provides best balance between accuracy and generalization
 
-#### Feature Engineering & Selection
+### Feature Set: Wine Physicochemical Properties
 
-#### Case 1: Single Demographic Feature
+The dataset includes 11 input features representing wine chemistry:
 
-- **Features**: `age` (continuous numerical)
-- **Rationale**: Test if passenger age correlates with fare (premium accommodations for older passengers)
-- **Challenge**: Age alone shows weak correlation with fare pricing
+1. **fixed acidity** - mostly tartaric acid concentration
+2. **volatile acidity** - acetic acid content (vinegar taste indicator)
+3. **citric acid** - adds freshness and flavor complexity
+4. **residual sugar** - remaining sugar after fermentation
+5. **chlorides** - salt content affecting taste
+6. **free sulfur dioxide** - microbial protection agent
+7. **total sulfur dioxide** - sum of free and bound forms
+8. **density** - related to sugar and alcohol content
+9. **pH** - acidity level (lower = more acidic)
+10. **sulphates** - antioxidant and stabilizer
+11. **alcohol** - percent alcohol by volume
 
-#### Case 2: Social Context Feature
+All features used in modeling without additional feature engineering or selection.
 
-- **Features**: `family_size` (engineered: sibsp + parch + 1)
-- **Rationale**: Family groups might pay different rates or get group discounts
-- **Challenge**: Individual booking decisions override family size patterns
+### Performance Summary - Ensemble Classification Results
 
-#### Case 3: Combined Demographic Features
+| Model | Train Accuracy | Test Accuracy | Train F1 | Test F1 | Accuracy Gap | F1 Score Gap | Performance Notes |
+|:------|:---------------|:--------------|:---------|:--------|:-------------|:-------------|:------------------|
+| **Random Forest (100)** | 100.00% | **88.75%** | 100.00 | **86.61** | 11.25% | 13.39% | 🏆 **Highest accuracy but overfits** |
+| **Voting (RF + LR + KNN)** | 91.71% | 85.94% | 89.94 | 82.81 | **5.78%** | **7.13%** | ✅ **Best generalization** |
 
-- **Features**: `age` + `family_size` (multi-dimensional)
-- **Rationale**: Combine life stage and social context for richer prediction
-- **Challenge**: More features don't always improve simple linear relationships
+#### 🏆 Key Performance Insights
 
-#### Case 4: Socioeconomic Indicators
+1. **Random Forest**: Achieved highest test accuracy (88.75%) but showed significant overfitting
+   - Perfect training scores (100%) indicate memorization of training patterns
+   - Large gaps (11.25% accuracy, 13.39% F1) between train/test suggest poor generalization
+   - May not perform consistently on completely new wine samples
 
-- **Features**: `sex` + `class` (gender + passenger class)
-- **Rationale**: Direct socioeconomic factors that determined 1912 ticket pricing
-- **Analysis**: Class structure (1st > 2nd > 3rd) and gender-based social patterns
-
-### Performance Summary - Regression Results
-
-| Model Type | Features | R² Score | RMSE | MAE | Performance Notes |
-|------------|----------|----------|------|-----|-------------------|
-| **Linear Regression** | age | ~0.01 | ~49.5 | ~35.2 | Poor - age weakly predicts fare |
-| | family_size | ~0.02 | ~49.3 | ~35.1 | Minimal improvement over age alone |
-| | age + family_size | ~0.03 | ~49.1 | ~34.9 | Slight improvement but still weak |
-| | **sex + class** | **~0.55** | **~33.5** | **~23.8** | 🏆 **Best performance - class drives fare** |
-| **Ridge Regression** | age | ~0.01 | ~49.5 | ~35.2 | No overfitting to regularize |
-| **Elastic Net** | age | ~0.01 | ~49.5 | ~35.2 | Regularization provides no benefit |
-| **Polynomial (degree 3)** | age | ~0.02 | ~49.2 | ~35.0 | Minimal improvement over linear |
-| **Polynomial (degree 6)** | age | ~0.01 | ~49.7 | ~35.4 | ⚠️ **Overfitting - worse than cubic** |
-
-#### 🏆 Performance Rankings
-
-1. **Linear Regression (sex + class)**: R² ~0.55 - Clear winner, captures fare structure
-2. **Polynomial degree 3**: R² ~0.02 - Marginal improvement for age-based models
-3. **All other combinations**: R² <0.03 - Poor performance, weak feature relationships
+2. **Voting Classifier**: Better balance between performance and generalization
+   - Lower test accuracy (85.94%) but much smaller train-test gaps
+   - Heterogeneous ensemble (tree + linear + instance-based) captures diverse patterns
+   - More robust predictions by averaging three different model perspectives
 
 ### Technical Accomplishments
 
-- **Comprehensive Model Comparison**: Implemented 4 different regression algorithms
-- **Regularization Analysis**: Tested Ridge and Elastic Net for overfitting prevention
-- **Polynomial Complexity Study**: Compared degree 3 vs degree 6 polynomial features
-- **Feature Impact Assessment**: Systematic evaluation of demographic vs. socioeconomic features
-- **Overfitting Detection**: Identified when model complexity hurts generalization
-- **Data Preprocessing**: Handled missing values, feature engineering, and categorical encoding
+- **Ensemble Method Comparison**: Implemented homogeneous (Random Forest) vs. heterogeneous (Voting) ensembles
+- **Automatic Data Acquisition**: Built-in dataset download from UCI repository for reproducibility
+- **Multi-class Classification**: Transformed 10-point quality scale into 3 balanced categories
+- **Comprehensive Evaluation**: Confusion matrices, accuracy, precision, recall, F1 scores for all models
+- **Generalization Analysis**: Gap calculations between train and test metrics to detect overfitting
+- **Visualization Suite**: Confusion matrix heatmaps and comparative bar charts for model performance
 
 ### Key Learning Outcomes & Insights
 
-#### **Critical Discovery: Feature Quality Over Model Complexity**
+#### **Critical Discovery: Overfitting vs. Generalization Trade-off**
 
-1. **Direct Predictors Win**: Passenger class directly determines fare structure
-2. **Demographic Limitations**: Age and family size are weak fare predictors  
-3. **Complexity Paradox**: Simple linear models with good features outperform complex models with poor features
-4. **Historical Context Matters**: 1912 social structures (gender + class) drive economic patterns
+1. **High Accuracy Isn't Everything**: Random Forest's 88.75% test accuracy came with 11.25% overfitting gap
+2. **Generalization Matters**: Voting Classifier's 5.78% gap suggests more reliable real-world performance
+3. **Ensemble Diversity Benefits**: Combining different model types (RF + LR + KNN) reduces individual model biases
+4. **Perfect Training Scores Warning**: 100% training accuracy indicates potential memorization, not learning
 
 #### **Algorithm-Specific Insights**
 
-- **Linear Regression**: Sufficient when relationships are fundamentally linear (class-fare relationship)
-- **Regularization (Ridge/Elastic Net)**: No benefit when base model isn't overfitting
-- **Polynomial Models**: Risk overfitting without strong underlying non-linear patterns
-- **Model Selection**: Match algorithm sophistication to data relationship complexity
+- **Random Forest**: Powerful but prone to overfitting without proper regularization (max_depth, min_samples_split)
+- **Voting Classifier**: Soft voting (probability averaging) leverages each model's confidence levels
+- **Heterogeneous Ensembles**: Different algorithms capture different aspects (feature interactions, linear patterns, local similarities)
 
-#### **Regression-Specific Lessons**
+#### **Classification-Specific Lessons**
 
-1. **R² Interpretation**: Values <0.1 indicate virtually no predictive power
-2. **Feature Engineering Impact**: Right features matter more than sophisticated algorithms  
-3. **Outlier Effects**: Right-skewed fare distribution affects all linear models
-4. **Domain Knowledge**: Understanding historical context crucial for feature selection
+1. **Class Imbalance Challenge**: Wine quality follows normal distribution (concentrated around medium ratings)
+2. **F1 Score Importance**: More informative than accuracy for imbalanced multi-class problems
+3. **Confusion Matrix Insights**: Shows which quality categories are commonly confused
+4. **Gap Analysis Value**: Train-test gaps reveal model reliability better than test scores alone
 
 ### Challenges Faced & Solutions
 
-- **Weak Baseline Features**: Age and family_size showed minimal fare correlation - **Solution**: Identified class as key predictor
-- **Fare Distribution Skew**: Right-skewed target with expensive outliers affecting linear assumptions - **Future work**: Log transformation needed
-- **Polynomial Overfitting**: Degree 6 performed worse than degree 3 - **Learning**: Higher complexity requires more data and stronger relationships
-- **Missing Context**: Limited features available - **Insight**: Real fare prediction would need cabin details, booking date, route information
+- **Class Imbalance**: Fewer low (≤4) and high (≥7) quality samples - **Impact**: Models struggle with extreme categories
+- **Feature Selection**: Used all 11 chemistry variables without domain expertise - **Future work**: Feature importance analysis needed
+- **Overfitting Detection**: Random Forest achieved perfect training scores - **Solution**: Implemented gap calculations to quantify
+- **Model Complexity**: No hyperparameter tuning performed - **Limitation**: Both models used default parameters
 
-### Data Challenges Identified
+### Dataset Challenges Identified
 
-1. **Fare Prediction Difficulty**: Moderately challenging with R² ~0.55 maximum
-   - Individual booking decisions create unpredictable patterns
-   - Missing key information (cabin details, exact routes, booking dates)
-   - Historical pricing inconsistencies from 1912 booking systems
+1. **Wine Quality Prediction Difficulty**: Moderately challenging classification problem
+   - Subjective human ratings introduce inherent noise
+   - Wine quality depends on complex chemical interactions
+   - Normal distribution creates class imbalance (most wines are medium quality)
 
-2. **Distribution Issues**:
-
-   - Right-skewed fare distribution (few very expensive luxury tickets)
-   - Outliers from premium suite passengers affect model training
-   - Missing age data creates gaps in demographic analysis
+2. **Feature Considerations**:
+   - 11 physicochemical features capture wine chemistry comprehensively
+   - Missing contextual features (grape variety, vintage year, winery, price point)
+   - Some features highly correlated (e.g., density with alcohol and sugar)
 
 ### Future Improvements & Next Steps
 
 **Immediate Enhancements:**
 
-- **Feature Engineering**: Add `pclass` directly, combine `embarked` with `class` for port-specific pricing
-- **Data Preprocessing**: Log-transform fare to reduce skew, handle outliers (>95th percentile) separately
-- **Alternative Targets**: Predict fare categories (Low/Medium/High) instead of exact amounts
+1. **Hyperparameter Tuning**: Use GridSearchCV for Random Forest parameters (max_depth, min_samples_split, n_estimators)
+2. **Address Class Imbalance**: Apply SMOTE (Synthetic Minority Over-sampling) or class_weight adjustments
+3. **Feature Engineering**: Create ratio features (alcohol/sugar, acidity/pH) to capture complex interactions
+4. **Feature Selection**: Use feature importance analysis to identify most predictive chemistry variables
 
 **Advanced Techniques:**
 
-- **Feature Selection**: Statistical tests to identify best predictors systematically
-- **Ensemble Methods**: Combine multiple regression approaches for improved robustness
-- **Cross-Validation**: Robust performance estimates across different data splits
+1. **Additional Ensembles**: Test Gradient Boosting, AdaBoost, Stacking classifiers for sequential error correction
+2. **Cross-Validation**: Implement k-fold CV for more robust performance estimates
+3. **Voting Weights**: Optimize voting classifier weights based on individual model performance
+4. **Regularization**: Add max_depth and min_samples_leaf constraints to Random Forest
 
 **Research Extensions:**
 
-- **Alternative Problems**: Try predicting age instead of fare for comparison
-- **Modern Techniques**: Gradient boosting, neural networks for non-linear patterns
-- **External Validation**: Test approaches on modern transportation pricing datasets
+1. **White Wine Comparison**: Apply same ensemble methods to white wine dataset
+2. **Regression Approach**: Predict exact quality scores (0-10) instead of categories
+3. **Feature Importance**: Identify which chemistry variables most influence quality ratings
+4. **Ensemble Visualization**: Plot decision boundaries or feature space representations
+
+---
+
+## Project Structure
