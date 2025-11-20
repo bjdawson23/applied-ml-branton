@@ -6,6 +6,8 @@
 
 - NOTEBOOK LINK: [Ensemble ML, Wine Quality](https://github.com/bjdawson23/applied-ml-branton/blob/main/notebooks/project05/ensemble_branton.ipynb)
 
+- Team notebook with usefull and similar results: [Beaderstadt Ensemble notebook](https://github.com/abeaderstadt/applied-ml-beaderstadt/blob/main/notebooks/project05/ensemble-beaderstadt.ipynb)
+
 **Project Overview**
 
 This notebook demonstrates ensemble machine learning techniques by classifying wine quality using multiple ensemble algorithms. The project compares Random Forest and Voting Classifier approaches to understand how combining multiple models improves prediction performance on the UCI Wine Quality dataset.
