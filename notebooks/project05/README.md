@@ -1,10 +1,10 @@
-# Project 04: ml04_branton.ipynb - Regression Analysis for Fare Prediction
+# Project 05: ensemble_branton.ipynb - Ensemble Machine Learning – Wine Dataset
 
 **Author:** Branton Dawson  
 **Date:** November 19, 2025  
 **Status:** COMPLETED
 
-- NOTEBOOK LINK: [ml04_branton_notebook](https://github.com/bjdawson23/applied-ml-branton/blob/main/notebooks/project04/ml04_branton.ipynb)
+- NOTEBOOK LINK:  [Ensemble ML, Sprial](https://github.com/bjdawson23/applied-ml-branton/blob/main/notebooks/project05/ml05_branton.ipynb)
 
 **Project Overview**
 This notebook demonstrates comprehensive regression modeling techniques by predicting Titanic passenger fares using multiple algorithms and feature combinations. The project systematically compares Linear Regression, Polynomial Regression, Ridge Regression, and Elastic Net models to understand continuous target prediction challenges.
