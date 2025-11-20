@@ -262,7 +262,6 @@ All features used in modeling without additional feature engineering or selectio
 2. **Voting Classifier**: Better balance between performance and generalization
    - Lower test accuracy (85.94%) but much smaller train-test gaps
    - Heterogeneous ensemble (tree + linear + instance-based) captures diverse patterns
-   - More robust predictions by averaging three different model perspectives
 
 ### Technical Accomplishments
 
@@ -275,7 +274,7 @@ All features used in modeling without additional feature engineering or selectio
 
 ### Key Learning Outcomes & Insights
 
-#### **Critical Discovery: Overfitting vs. Generalization Trade-off**
+#### **Overfitting vs. Generalization Trade-off**
 
 1. **High Accuracy Isn't Everything**: Random Forest's 88.75% test accuracy came with 11.25% overfitting gap
 2. **Generalization Matters**: Voting Classifier's 5.78% gap suggests more reliable real-world performance
@@ -286,7 +285,6 @@ All features used in modeling without additional feature engineering or selectio
 
 - **Random Forest**: Powerful but prone to overfitting without proper regularization (max_depth, min_samples_split)
 - **Voting Classifier**: Soft voting (probability averaging) leverages each model's confidence levels
-- **Heterogeneous Ensembles**: Different algorithms capture different aspects (feature interactions, linear patterns, local similarities)
 
 #### **Classification-Specific Lessons**
 
@@ -304,39 +302,23 @@ All features used in modeling without additional feature engineering or selectio
 
 ### Dataset Challenges Identified
 
-1. **Wine Quality Prediction Difficulty**: Moderately challenging classification problem
-   - Subjective human ratings introduce inherent noise
-   - Wine quality depends on complex chemical interactions
-   - Normal distribution creates class imbalance (most wines are medium quality)
+- Subjective human ratings introduce inherent noise
+- Normal distribution creates class imbalance (most wines are medium quality)
 
-2. **Feature Considerations**:
-   - 11 physicochemical features capture wine chemistry comprehensively
-   - Missing contextual features (grape variety, vintage year, winery, price point)
-   - Some features highly correlated (e.g., density with alcohol and sugar)
+**Feature**:
+
+- 11 physicochemical features capture wine chemistry comprehensively
+- Missing contextual features (grape variety, vintage year, winery, price point)
 
 ### Future Improvements & Next Steps
 
-**Immediate Enhancements:**
-
-1. **Hyperparameter Tuning**: Use GridSearchCV for Random Forest parameters (max_depth, min_samples_split, n_estimators)
-2. **Address Class Imbalance**: Apply SMOTE (Synthetic Minority Over-sampling) or class_weight adjustments
-3. **Feature Engineering**: Create ratio features (alcohol/sugar, acidity/pH) to capture complex interactions
-4. **Feature Selection**: Use feature importance analysis to identify most predictive chemistry variables
-
-**Advanced Techniques:**
-
-1. **Additional Ensembles**: Test Gradient Boosting, AdaBoost, Stacking classifiers for sequential error correction
-2. **Cross-Validation**: Implement k-fold CV for more robust performance estimates
-3. **Voting Weights**: Optimize voting classifier weights based on individual model performance
-4. **Regularization**: Add max_depth and min_samples_leaf constraints to Random Forest
+- **Feature Engineering**: Create ratio features (alcohol/sugar, acidity/pH) to capture complex interactions
+- **Feature Selection**: Use feature importance analysis to identify most predictive chemistry variables
 
 **Research Extensions:**
 
 1. **White Wine Comparison**: Apply same ensemble methods to white wine dataset
 2. **Regression Approach**: Predict exact quality scores (0-10) instead of categories
 3. **Feature Importance**: Identify which chemistry variables most influence quality ratings
-4. **Ensemble Visualization**: Plot decision boundaries or feature space representations
 
 ---
-
-## Project Structure
